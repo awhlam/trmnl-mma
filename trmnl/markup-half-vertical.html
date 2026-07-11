@@ -1,0 +1,10 @@
+<div class="view view--half_vertical">
+  <span class="title">UFC next</span>
+  {% if upcoming.size > 0 %}
+    <div class="mt-2"><strong>{{ upcoming[0].name }}</strong></div>
+    <div>{{ upcoming[0].date_label }} · {{ upcoming[0].time_label }}</div>
+    <div class="label">{{ upcoming[0].location }}</div>
+  {% else %}
+    <div class="content content--center">No upcoming UFC event found.</div>
+  {% endif %}
+</div>

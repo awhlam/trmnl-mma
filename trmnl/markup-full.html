@@ -1,0 +1,33 @@
+<div class="view view--full">
+  <div class="layout">
+    <div class="columns">
+      <div class="column">
+        <div class="title_bar">
+          <span class="title">UFC: upcoming events</span>
+          <span class="instance">{{ timezone }}</span>
+        </div>
+
+        {% if upcoming.size > 0 %}
+          <div class="mma-events">
+            {% for event in upcoming limit: 4 %}
+              <div class="mma-event">
+                <div class="mma-date">{{ event.date_label }}<br><small>{{ event.time_label }}</small></div>
+                <div class="mma-details">
+                  <strong>{{ event.name }}</strong>
+                  <span>{{ event.location }}</span>
+                </div>
+                {% if event.status == "in" %}<div class="mma-live">LIVE</div>{% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="content content--center">No upcoming UFC events found in the next 120 days.</div>
+        {% endif %}
+
+        {% if recent.size > 0 %}
+          <div class="mma-recent">Most recent: {{ recent[0].name }} · {{ recent[0].date_label }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

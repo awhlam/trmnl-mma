@@ -1,0 +1,6 @@
+name = "trmnl-mma"
+main = "src/worker.js"
+compatibility_date = "2026-07-11"
+
+# After deployment, point the TRMNL Private Plugin polling URL at:
+# https://trmnl-mma.<your-subdomain>.workers.dev/events?timezone=##{{ trmnl.user.time_zone_iana | url_encode }}
