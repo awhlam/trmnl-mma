@@ -1,0 +1,26 @@
+<div class="layout layout--col layout--top layout--left">
+  {% if upcoming.size > 0 %}
+    {% for event in upcoming limit: 2 %}
+      <div class="mma-event mma-event--compact">
+        <div class="mma-date">
+          {% if timezone == "UTC" %}
+            {{ event.starts_at_epoch | plus: trmnl.user.utc_offset | date: "%a, %b %-d" }}<br><small>{{ event.starts_at_epoch | plus: trmnl.user.utc_offset | date: "%-I:%M %p" }}</small>
+          {% else %}
+            {{ event.date_label }}<br><small>{{ event.time_label }}</small>
+          {% endif %}
+        </div>
+        <div class="mma-details">
+          <strong class="mma-name">{{ event.name }}</strong>
+          <span>{{ event.location }}</span>
+        </div>
+        {% if event.status == "in" %}<div class="mma-live">LIVE</div>{% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="mma-empty">No upcoming UFC event found.</div>
+  {% endif %}
+</div>
+
+<div class="title_bar">
+  <span class="title">UFC Schedule</span>
+</div>

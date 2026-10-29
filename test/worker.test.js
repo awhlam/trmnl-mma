@@ -32,3 +32,8 @@ test("buildSchedule requests a bounded ESPN date range and normalizes the respon
   assert.equal(result.upcoming[0].name, "UFC Test");
   assert.equal(result.recent.length, 0);
 });
+
+test("normalized events expose a Unix timestamp for Liquid date formatting", () => {
+  const [event] = selectEvents([{ id: "1", date: "2026-07-18T20:00:00Z" }], NOW, "UTC", 1, 0).upcoming;
+  assert.equal(event.starts_at_epoch, 1784404800);
+});

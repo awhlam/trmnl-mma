@@ -1,0 +1,22 @@
+<div class="layout layout--col layout--top layout--left">
+  {% if upcoming.size > 0 %}
+    {% assign event = upcoming[0] %}
+    <div class="mma-details">
+      <strong class="mma-name">{{ event.name }}</strong>
+      <span>
+        {% if timezone == "UTC" %}
+          {{ event.starts_at_epoch | plus: trmnl.user.utc_offset | date: "%a, %b %-d · %-I:%M %p" }}
+        {% else %}
+          {{ event.date_label }} · {{ event.time_label }}
+        {% endif %}
+      </span>
+      <span>{{ event.location }}</span>
+    </div>
+  {% else %}
+    <div class="mma-empty">No upcoming UFC event found.</div>
+  {% endif %}
+</div>
+
+<div class="title_bar">
+  <span class="title">UFC next</span>
+</div>

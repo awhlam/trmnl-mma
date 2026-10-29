@@ -1,10 +1,25 @@
-<div class="view view--half_vertical">
-  <span class="title">UFC next</span>
+<div class="layout layout--col layout--top layout--left">
   {% if upcoming.size > 0 %}
-    <div class="mt-2"><strong>{{ upcoming[0].name }}</strong></div>
-    <div>{{ upcoming[0].date_label }} · {{ upcoming[0].time_label }}</div>
-    <div class="label">{{ upcoming[0].location }}</div>
+    {% for event in upcoming limit: 3 %}
+      <div class="mma-event mma-event--compact">
+        <div class="mma-details">
+          <strong class="mma-name">{{ event.name }}</strong>
+          <span>
+            {% if timezone == "UTC" %}
+              {{ event.starts_at_epoch | plus: trmnl.user.utc_offset | date: "%a, %b %-d · %-I:%M %p" }}
+            {% else %}
+              {{ event.date_label }} · {{ event.time_label }}
+            {% endif %}
+          </span>
+          <span>{{ event.location }}</span>
+        </div>
+      </div>
+    {% endfor %}
   {% else %}
-    <div class="content content--center">No upcoming UFC event found.</div>
+    <div class="mma-empty">No upcoming UFC event found.</div>
   {% endif %}
+</div>
+
+<div class="title_bar">
+  <span class="title">UFC Schedule</span>
 </div>

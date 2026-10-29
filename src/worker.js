@@ -49,6 +49,8 @@ export function normalizeEvent(event, timeZone) {
     name: event.name ?? event.shortName ?? "UFC event",
     short_name: event.shortName ?? "UFC",
     starts_at: event.date,
+    // Unix seconds, so TRMNL markup can format the time itself with trmnl.user.utc_offset.
+    starts_at_epoch: Math.floor(Date.parse(event.date) / 1000),
     status: event.status?.type?.state ?? "pre",
     location: location || "Location TBA",
     ...formatDate(event.date, timeZone),
