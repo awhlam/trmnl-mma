@@ -27,7 +27,9 @@ Cloudflare will print a URL such as `https://trmnl-mma.example.workers.dev`. Con
 https://trmnl-mma.example.workers.dev/events?timezone=America%2FLos_Angeles
 ```
 
-The response includes `upcoming` and `recent` arrays. Responses are cached for 15 minutes to avoid needless calls to ESPN.
+The response includes `upcoming` and `recent` arrays. Each event has preformatted `date_label`/`time_label` values plus `starts_at` (ISO 8601) and `starts_at_epoch` (Unix seconds).
+
+Responses are cached for 15 minutes to avoid needless calls to ESPN. Cloudflare's Cache API has no effect on `*.workers.dev` hosts, so that cache only applies when the Worker is on a custom domain; without it, each TRMNL poll makes one ESPN request, which is fine at a 30–60 minute refresh rate.
 
 ## Install on TRMNL
 
@@ -38,13 +40,24 @@ This uses the fast, personal-install path; it does not require creating a public
 3. Set the Polling URL to the following, replacing the Worker host with yours:
 
    ```text
-   https://trmnl-mma.<your-subdomain>.workers.dev/events?timezone=##{{ trmnl.user.time_zone_iana | url_encode }}
+   https://trmnl-mma.<your-subdomain>.workers.dev/events?timezone={{ trmnl.user.time_zone_iana | url_encode }}
    ```
 
-   `##{{ ... }}` is TRMNL's documented way of writing a Liquid variable in its help articles. Enter the variable exactly as shown in the TRMNL editor; it passes the installed user's IANA time zone to the endpoint.
-4. Save the plugin, click **Edit Markup**, and paste [trmnl/shared.html](trmnl/shared.html) into the **Shared** tab and [trmnl/markup-full.html](trmnl/markup-full.html) into the **Full screen** tab.
-5. Click **Force Refresh** to preview it, then add it to your device playlist. Choose a refresh interval of 30–60 minutes.
-6. For a left/right mashup, also paste [trmnl/markup-half-vertical.html](trmnl/markup-half-vertical.html) into the matching layout tab.
+   TRMNL renders the Polling URL through Liquid, so this passes the installed user's IANA time zone to the endpoint. Type it with plain `{{ ... }}`: TRMNL's help articles print Liquid as `##{{ ... }}`, but a literal `#` here would start a URL fragment and drop the time zone. Use the **Parse** button under the Polling URL box to check that it renders as, for example, `...?timezone=America%2FLos_Angeles`.
+
+   If the time zone doesn't come through, the Worker falls back to `UTC` and the markup formats times itself using `trmnl.user.utc_offset`. That fallback uses today's UTC offset, so times for events after a daylight-saving change can be off by an hour.
+4. Save the plugin, click **Edit Markup**, and paste each file into the matching tab:
+
+   | Tab | File |
+   | --- | --- |
+   | Shared | [trmnl/shared.html](trmnl/shared.html) |
+   | Full | [trmnl/markup-full.html](trmnl/markup-full.html) |
+   | Half vertical | [trmnl/markup-half-vertical.html](trmnl/markup-half-vertical.html) |
+   | Half horizontal | [trmnl/markup-half-horizontal.html](trmnl/markup-half-horizontal.html) |
+   | Quadrant | [trmnl/markup-quadrant.html](trmnl/markup-quadrant.html) |
+
+   The markup follows the TRMNL Framework structure: TRMNL adds the `view` wrapper itself, so each file contains only a `layout` and a sibling `title_bar`.
+5. Click **Force Refresh** to preview it, then add it to your device playlist. Choose a refresh interval of 30–60 minutes. The half and quadrant layouts are used when the plugin is part of a Mashup.
 
 ## Develop locally
 

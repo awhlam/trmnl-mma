@@ -1,11 +1,15 @@
 <style>
-  .mma-events { margin-top: 14px; }
-  .mma-event { align-items: center; border-bottom: 1px solid #222; display: flex; min-height: 72px; padding: 8px 4px; }
+  .mma-events { width: 100%; }
+  .mma-event { align-items: center; border-bottom: 1px solid #000; display: flex; min-height: 72px; padding: 8px 4px; width: 100%; }
+  .mma-event:last-child { border-bottom: 0; }
+  .mma-event--compact { min-height: 0; }
   .mma-date { font-size: 18px; font-weight: 700; line-height: 1.25; min-width: 145px; }
   .mma-date small { font-size: 13px; font-weight: 400; }
   .mma-details { display: flex; flex: 1; flex-direction: column; min-width: 0; }
   .mma-details strong { font-size: 21px; line-height: 1.2; }
   .mma-details span { font-size: 15px; margin-top: 4px; }
+  .mma-name { -webkit-box-orient: vertical; -webkit-line-clamp: 2; display: -webkit-box; overflow: hidden; }
   .mma-live { border: 2px solid #000; font-size: 13px; font-weight: 700; margin-left: 12px; padding: 3px 5px; }
-  .mma-recent { font-size: 14px; margin-top: 12px; }
+  .mma-recent { font-size: 14px; margin-top: 8px; }
+  .mma-empty { font-size: 18px; width: 100%; }
 </style>
