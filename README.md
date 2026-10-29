@@ -12,6 +12,16 @@ An installable MVP for showing upcoming UFC events on a TRMNL. It uses a **TRMNL
 
 The Worker deliberately reads no user data and needs no secret or API key.
 
+## Screenshots
+
+These previews render the real markup and the Worker's formatting with **sample events** at TRMNL's screen sizes. The title bar and page frame only approximate TRMNL's framework styling, so the device will look slightly different.
+
+![Full screen (800×480)](docs/screenshots/full.png)
+
+| Half vertical (400×480) | Half horizontal (800×240) and quadrant (400×240) |
+| --- | --- |
+| ![Half vertical](docs/screenshots/half-vertical.png) | ![Half horizontal](docs/screenshots/half-horizontal.png)<br><br>![Quadrant](docs/screenshots/quadrant.png) |
+
 ## Deploy the schedule endpoint
 
 Prerequisites: a Cloudflare account, Git, and Node.js 18+.
