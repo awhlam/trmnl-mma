@@ -14,7 +14,16 @@ The Worker deliberately reads no user data and needs no secret or API key.
 
 ## Deploy the schedule endpoint
 
-Prerequisites: a Cloudflare account and Node.js 18+.
+Prerequisites: a Cloudflare account, Git, and Node.js 18+.
+
+Download the code and run the remaining commands from inside the project folder:
+
+```powershell
+git clone https://github.com/awhlam/trmnl-mma.git
+cd trmnl-mma
+```
+
+Then sign in to Cloudflare and deploy:
 
 ```powershell
 npx wrangler login
